@@ -53,7 +53,7 @@ function download(filename, text) {
 document
   .getElementById(`save-text-file`)
   .addEventListener("click", function () {
-    let text = document.querySelector("textarea").value;
+    let text = textarea.value;
     let filename = "text.txt";
     download(filename, text);
   });
