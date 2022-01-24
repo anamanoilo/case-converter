@@ -1,46 +1,59 @@
-document.getElementById("upper-case").addEventListener("click", function () {
-        document.querySelector("textarea").value = document.querySelector("textarea").value.toUpperCase();
-    });
-    document.getElementById("lower-case").addEventListener("click", function () {
-        document.querySelector("textarea").value = document.querySelector("textarea").value.toLowerCase();
-    });
-    document.getElementById("proper-case").addEventListener("click", function () {
-        let valueOfTextArea = document.querySelector("textarea").value;
-        let words = valueOfTextArea.split(' ');
-        words.forEach(function (value, index) {
-            words[index] = wordUppercaser(value);
-        });
-        function wordUppercaser(word) {
-            return word[0].toUpperCase() + word.slice(1).toLowerCase();
-        }
-        document.querySelector("textarea").value = words.join(' ');
-    });
-    document.getElementById("sentence-case").addEventListener("click", function () {
-        let valueOfTextArea = document.querySelector("textarea").value
-        let sentences = valueOfTextArea.split('. ');
-        sentences.forEach(Capitalizer);
-        function Capitalizer(value, index) {
-            sentences[index] = capitalizer(value);
-        }
-        function capitalizer(sentence) {
-            return sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
-        }
-        document.querySelector("textarea").value = sentences.join('. ');
-    });
-    function download(filename, text) {
-        let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
+const upperCaseBtn = document.getElementById("upper-case");
+const lowerCaseBtn = document.getElementById("lower-case");
+const properCaseBtn = document.getElementById("proper-case");
+const sentenceCaseBtn = document.getElementById("sentence-case");
+const textarea = document.querySelector("textarea");
 
-        element.style.display = 'none';
-        document.body.appendChild(element);
+upperCaseBtn.addEventListener("click", function () {
+  textarea.value = textarea.value.toUpperCase();
+});
 
-        element.click();
+lowerCaseBtn.addEventListener("click", function () {
+  textarea.value = textarea.value.toLowerCase();
+});
 
-        document.body.removeChild(element);
-    }
-    document.getElementById(`save-text-file`).addEventListener("click", function (){
-        let text = document.querySelector("textarea").value;
-        let filename = "text.txt";
-        download(filename, text);
-    });
+properCaseBtn.addEventListener("click", function () {
+  let words = textarea.value.split(" ");
+  words.forEach(function (value, index) {
+    words[index] = wordUppercaser(value);
+  });
+  function wordUppercaser(word) {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }
+  textarea.value = words.join(" ");
+});
+
+sentenceCaseBtn.addEventListener("click", function () {
+  let sentences = textarea.value.split(". ");
+  sentences.forEach(Capitalizer);
+  function Capitalizer(value, index) {
+    sentences[index] = capitalizer(value);
+  }
+  function capitalizer(sentence) {
+    return sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
+  }
+  textarea.value = sentences.join(". ");
+});
+
+function download(filename, text) {
+  let element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", filename);
+
+  element.style.display = "none";
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+document
+  .getElementById(`save-text-file`)
+  .addEventListener("click", function () {
+    let text = document.querySelector("textarea").value;
+    let filename = "text.txt";
+    download(filename, text);
+  });
